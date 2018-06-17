@@ -1,0 +1,57 @@
+json配置开发的步骤：
+1、加入两个jar包：jackson-core-asl-1.9.11.jar、jackson-mapper-asl-1.9.11.jar
+2、在springmvc配置文件中加入bean（适配器中加入)：
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+		<property name="webBindingInitializer" ref="customBinder"></property>
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+			</list>
+		</property>
+	</bean>
+3、写controll（@ResponseBody和@RequestBody)请求json响应json
+
+@Controller
+public class JsonControll {
+	@Autowired
+	private ItemsService itemsService;
+	
+	@RequestMapping("login")
+	public String login(Items items) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+
+		return "jsonTest";
+	}
+
+	@RequestMapping("Testjson")
+	public @ResponseBody ItemsCustom Testjson(@RequestBody ItemsCustom itemsCustom) {
+		
+		
+
+		return itemsCustom;
+	}
+
+}
+4、在jsp文件中请求json响应json或者请求key/value响应json
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+function requestJson(){
+	$.ajax({
+		url:"${pageContext.request.contextPath }/Testjson.action",
+		type:"post",
+		contentType:"application/json;charset=utf-8",
+		//请求json数据,使用json表示商品信息
+		data:'{"name":"手机","price":1999}',
+		success:function(data){
+			
+			alert(data.name);
+		}
+		
+		
+	});
+}
