@@ -56,10 +56,11 @@ if (bindingResult.hasErrors()) {
 			return "itemsedit";
 6、编写jsp代码
 		<p>错误信息：</p><c:forEach items="${list}" var="error">
-			<input type="text" name="error "value="${error.defaultMessage}">
-			
+			<input type="text" name="error "value="${error.defaultMessage}">		
 分组校验
 1、定义一个分组校验的类 CustomValidate，不需要加方法
 2、在pojo类的注解标签下加入一个属性groups
 	@NotNull(message = "{items.name.length.errors}",groups= {CustomValidate.class})
-	
+3、在controll中添加：
+public String sumbitItems(Integer id, @Validated(value= {CustomValidate.class}) @ModelAttribute(value = "itemsCustom") ItemsCustom itemsCustom,
+			BindingResult bindingResult, MultipartFile multipartFile,Model model) throws Exception {
