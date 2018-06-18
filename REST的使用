@@ -1,0 +1,34 @@
+1、更改web.xml的配置
+<!-- rest方式配置为/ -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<!-- post乱码处理 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
+  2、@RequestMapping(value="/select/{id}")
+	public @ResponseBody Items selectItemsByid(@PathVariable("id")Integer id) throws Exception {
+		Items items=itemsService.selectByPrimaryKey(id);
+		System.out.println(items.getName());
+		return items;
+		
+		
+	}
+  
+  
+  其中@PathVariable是在url中传入的值
+  3、在地址栏中输入：localhost/select/8访问
+  
+  无法加载资源文件，在springmvc配置文件中加入：
+  	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
