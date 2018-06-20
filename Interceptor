@@ -37,7 +37,7 @@ public class interceptorTest implements HandlerInterceptor {
 2、执行顺序：
 preHandle方法先进去先执行，如果放回true，则继续执行postHandle方法，否则，停止handler的处理；
 postHandle和afterCompletion方法后进去先执行；
-3、在web.xml配置文件中加入：
+3、在springmvc.xml配置文件中加入：
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
